@@ -1,159 +1,174 @@
-# ⚡ ContentFetch-AI-Content-Downloader-MCP-Server
+# AiAgent-UrlContent-Fetcher-NodeJS-Service
 
-[![Build Status](https://github.com/chirag127/ContentFetch-AI-Content-Downloader-MCP-Server/actions/workflows/ci.yml/badge.svg)](https://github.com/chirag127/ContentFetch-AI-Content-Downloader-MCP-Server/actions/workflows/ci.yml)
-[![Code Coverage](https://codecov.io/gh/chirag127/ContentFetch-AI-Content-Downloader-MCP-Server/branch/main/graph/badge.svg)](https://codecov.io/gh/chirag127/ContentFetch-AI-Content-Downloader-MCP-Server)
-[![TypeScript](https://img.shields.io/badge/TypeScript-4.x-blue?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-orange.svg?style=flat-square)](https://creativecommons.org/licenses/by-nc/4.0/)
-[![GitHub Stars](https://img.shields.io/github/stars/chirag127/ContentFetch-AI-Content-Downloader-MCP-Server?style=flat-square&logo=github&color=yellow)](https://github.com/chirag127/ContentFetch-AI-Content-Downloader-MCP-Server)
-
-***
-
-> This repository hosts the **ContentFetch MCP Server**, a high-throughput, TypeScript-based microservice engineered specifically to enable autonomous AI agents (like Claude or proprietary models) to reliably fetch, validate, and persist external web content via standardized HTTP transport.
-
-This system acts as the secure, resilient I/O layer for intelligent agents that require grounding data from the live internet, abstracting away complexities like retries, encoding, and path manipulation.
-
-## 🏗️ Architecture Overview
-
-The server utilizes a clean separation of concerns: a lightweight HTTP server for command intake, a dedicated Content Fetching Service, and robust Error/Logging Handlers, ensuring high availability and testability.
-
-ascii
-ContentFetch MCP Server
-+----------------------------------+
-|         HTTP/HTTPS Listener      |
-|   (Request Ingestion & Validation) |
-+----------------------------------+
-               | (Command: URL, TargetPath)
-               v
-+----------------------------------+
-|   Content Fetching Core Service  |
-|   (HTTP Client, Stream Handling) |
-+----------------------------------+
-               | (Success/Failure)
-               v
-+----------------------------------+
-|     Persistence & Logging Adapter|
-+----------------------------------+
-
-
-## 🧭 Table of Contents
-1. [Features](#-features)
-2. [Technology Stack](#-technology-stack)
-3. [🤖 AI Agent Directives](#-ai-agent-directives)
-4. [Getting Started](#-getting-started)
-5. [Development & Contribution](#-development--contribution)
-6. [License](#-license)
+A sophisticated NodeJS service empowering AI agents to efficiently download and persist web content directly to specified file paths. Designed for server-side execution, it handles large-scale data processing with robust error management and seamless integration capabilities.
 
 ---
 
-## ✨ Features
+## Shields
 
-*   **Agent-Native Protocol:** Designed as a **Micro-Command Protocol (MCP)** handler, accepting clear JSON payloads for fetching instructions.
-*   **Resilient Fetching:** Built-in exponential backoff and intelligent HTTP status code handling.
-*   **Secure Path Handling:** Rigorous sanitization of destination file paths to prevent directory traversal attacks.
-*   **Content Agnostic:** Capable of downloading binary assets (images, PDFs) or raw text.
-*   **Type Safety:** Leveraging TypeScript across the entire stack for maximum compile-time verification.
+[![Build Status](https://img.shields.io/github/actions/workflow/user/chirag127/AiAgent-UrlContent-Fetcher-NodeJS-Service/ci.yml?style=flat-square)](https://github.com/chirag127/AiAgent-UrlContent-Fetcher-NodeJS-Service/actions/workflows/ci.yml)
+[![Code Coverage](https://img.shields.io/codecov/c/github/chirag127/AiAgent-UrlContent-Fetcher-NodeJS-Service?style=flat-square)](https://codecov.io/github/chirag127/AiAgent-UrlContent-Fetcher-NodeJS-Service)
+[![TypeScript Version](https://img.shields.io/badge/TypeScript-6.x-blue?style=flat-square)](https://www.typescriptlang.org/)
+[![Vite Version](https://img.shields.io/badge/Vite-7.x-orange?style=flat-square)](https://vitejs.dev/)
+[![License](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey?style=flat-square)](https://github.com/chirag127/AiAgent-UrlContent-Fetcher-NodeJS-Service/blob/main/LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/chirag127/AiAgent-UrlContent-Fetcher-NodeJS-Service?style=flat-square)](https://github.com/chirag127/AiAgent-UrlContent-Fetcher-NodeJS-Service)
 
-## 🖥️ Technology Stack
+---
 
-| Layer | Technology | Version Standard |
-| :--- | :--- | :--- |
-| Language | TypeScript | 4.x / Strict Mode |
-| Runtime | Node.js | LTS (Current) |
-| Server | Express.js / Fastify | Latest Stable |
-| Fetching | Native `fetch` / Axios | Standardized |
-| CI/CD | GitHub Actions | Standardized |
-| Linting/Formatting | Biome | Ultra-Fast |
+## ⭐ Star this Repo
 
-## 🤖 AI Agent Directives
+If you find this project useful, please give it a star!
+
+[<img src="https://img.shields.io/github/stars/chirag127/AiAgent-UrlContent-Fetcher-NodeJS-Service?color=brightgreen&style=social" alt="GitHub Stars">](https://github.com/chirag127/AiAgent-UrlContent-Fetcher-NodeJS-Service)
+
+---
+
+## Table of Contents
+
+*   [Overview](#overview)
+*   [Architecture](#architecture)
+*   [AI Agent Directives](#ai-agent-directives)
+*   [Development Standards](#development-standards)
+*   [Setup & Usage](#setup--usage)
+*   [License](#license)
+
+---
+
+## Overview
+
+This NodeJS service provides a critical function for AI agents: the ability to reliably fetch web content and save it to disk. It's designed for server-side applications where direct file system access and efficient data handling are paramount.
+
+---
+
+## Architecture
+
+The service follows a modern, scalable architecture emphasizing modularity and testability.
+
+mermaid
+graph TD
+    A[AI Agent Request] --> B{FetchService};
+    B --> C[Web Fetcher Module];
+    C --> D[File Persistence Module];
+    D --> E[Response to Agent];
+    B --> F[Error Handling & Logging];
+    F --> E;
+    C --> F;
+    D --> F;
+
+
+---
+
+## AI Agent Directives
 
 <details>
-<summary><strong>Click to View Apex Agent Alignment Directives (v2025.12)</strong></summary>
+<summary>Click to expand AI Agent Directives</summary>
 
-# SYSTEM: APEX TECHNICAL AUTHORITY AGENT DIRECTIVES
+### System: Apex Technical Authority & Elite Architect (December 2025 Edition)
 
-## 1. IDENTITY & PRIME DIRECTIVE
-**Role:** You are an Elite Software Architect Agent operating on data retrieved from the **ContentFetch MCP Server**. Your primary goal is **Data Acquisition Reliability**.
-**Context:** You are interacting with a TypeScript/Node.js service adhering to **FAANG-level standards**.
-**Output Standard:** Deliver **EXECUTION-ONLY** results. All commands must be valid JSON payloads conforming to the MCP contract.
-**Philosophy:** "Zero-Defect, High-Velocity, Future-Proof."
+**1. Identity & Prime Directive:**
+   - **Role:** Senior Principal Software Architect, Master Technical Copywriter (40+ years elite experience).
+   - **Context:** December 2025, building for 2026 standards.
+   - **Output:** EXECUTION-ONLY. Zero plans, only executed code, updated docs, applied fixes.
+   - **Philosophy:** "Zero-Defect, High-Velocity, Future-Proof."
 
-## 2. INPUT PROCESSING & COGNITION (Agent-Side)
-*   **Error Budget:** Assume the MCP Server handles low-level network errors (4xx/5xx). Your focus must be on **Semantic Validation** of the required inputs.
-*   **Contract Adherence:** **STRICTLY FORBIDDEN** from deviating from the established MCP payload structure (URL must be present, targetPath must be sanitized).
-*   **Verification:** After receiving a success status (HTTP 200/201) from the server, you **MUST** initiate a follow-up check (e.g., checking a shared storage bucket or requesting a metadata checksum) to confirm data integrity.
+**2. Input Processing & Cognition:**
+   - **Speech-to-Text Interpretation:** Infer technical intent; **strictly forbidden** from executing literal typos.
+   - **Logic Anchor:** `README.md` is the Single Source of Truth (SSOT).
+   - **Mandatory MCP Instrumentation:** Use `linkup`/`brave` for December 2025 industry standards, security threats, 2025/2026 trends. Use `docfork` to verify API signatures. Use `clear-thought-two` for complex flow architecture.
 
-## 3. ARCHITECTURAL PATTERNS ENFORCEMENT
-*   **SOLID Principle:** Ensure all requests encapsulate a single concern (fetching a single URL).
-*   **DRY Principle:** Reuse established JSON structures for multiple fetch requests where possible.
-*   **YAGNI Principle:** Do not embed unnecessary processing logic into the request payload; the server handles I/O; keep your commands lean.
+**3. Context-Aware Apex Tech Stacks (Late 2025 Standards):**
+   - **Repository Type:** NodeJS Service (TypeScript).
+   - **Apex Toolchain:**
+     - **Language:** TypeScript 6.x (Strict Mode Enabled).
+     - **Build Tool:** Vite 7 (Rolldown).
+     - **Native Runtime (Optional):** Tauri v2.x.
+     - **Extension Framework (Optional):** WXT.
+     - **State Management:** Signals (Standardized).
+     - **Linting/Formatting:** Biome (Industry Standard for Speed & Correctness).
+     - **Testing:** Vitest (Unit/Integration), Playwright (E2E).
+     - **Architecture:** Feature-Sliced Design (FSD) for frontend components if applicable, otherwise modular, layered architecture for backend services. Ensure clear API contracts between modules.
 
-## 4. VERIFICATION COMMANDS (TypeScript Context)
-If local verification is necessary before deploying agent logic:
-bash
-# 1. Install Dependencies (uv-equivalent via npm)
-npm install
+**4. Apex Naming Convention (Star Velocity Engine):**
+   - Format: `<Product-Name>-<Primary-Function>-<Platform>-<Type>`
+   - Example: `AiAgent-UrlContent-Fetcher-NodeJS-Service`
 
-# 2. Fast Linting and Formatting Check (Biome)
-npx @biomejs/biome check --apply ./src
+**5. README Replication Protocol (Ultimate Artifact):**
+   - **Sections:** Visual Authority (Hero Banner/Logo), Shields.io Badges (Style: `flat-square`, User: `chirag127`), Social Proof, BLUF, Architecture Diagram, Table of Contents, AI Agent Directives (`<details>` block), Development Standards (Setup, Scripts, Principles), License.
 
-# 3. Run Unit Tests (Vitest)
-npm test
+**6. Chain of Thought (CoT) Protocol:**
+   - Audit repository content and purpose.
+   - Decide Pivot/Archive.
+   - Apply Naming Strategy.
+   - Draft AI Agent Directives.
+   - Plan file generation for Standard 11.
+   - Ensure all badges and Standard 11 compliance.
+   - Customize `AGENTS.md` for the specific repository tech stack.
 
-# 4. Full Build Verification
-npm run build
+**7. Dynamic URL & Badge Protocol:**
+   - Base URL: `https://github.com/chirag127/<New-Repo-Name>`
+   - All links, badges must use the new repository URL.
+   - Adapt `AGENTS.md` content; do not copy generically.
+
+**FOR THIS REPOSITORY (`AiAgent-UrlContent-Fetcher-NodeJS-Service`):**
+- **Tech Stack:** TypeScript 6.x, NodeJS (latest LTS), Vite 7.
+- **Lint/Format:** Biome.
+- **Testing:** Vitest (Unit/Integration).
+- **Architecture:** Modular, Layered Backend Service.
+- **Verification Commands:**
+  - `npm install`
+  - `npm run lint`
+  - `npm run test`
+  - `npm run build`
+  - `npm run dev`
 
 </details>
 
-## 🚀 Getting Started
+---
 
-### Prerequisites
-*   Node.js (LTS or higher)
-*   npm or yarn
+## Development Standards
 
-### Installation
+This project adheres to the following principles to ensure high code quality and maintainability:
 
-1.  **Clone the Repository**
+*   **SOLID Principles:** Adhered to for robust object-oriented design.
+*   **DRY (Don't Repeat Yourself):** Code duplication is actively avoided.
+*   **YAGNI (You Ain't Gonna Need It):** Features are only implemented when necessary.
+*   **KISS (Keep It Simple, Stupid):** Complex solutions are simplified.
+
+### Setup & Installation
+
+1.  **Clone the repository:**
     bash
-    git clone https://github.com/chirag127/ContentFetch-AI-Content-Downloader-MCP-Server.git
-    cd ContentFetch-AI-Content-Downloader-MCP-Server
+    git clone https://github.com/chirag127/AiAgent-UrlContent-Fetcher-NodeJS-Service.git
+    cd AiAgent-UrlContent-Fetcher-NodeJS-Service
     
 
-2.  **Install Dependencies**
-    *(Using npm as standard Node environment manager)*
+2.  **Install dependencies:**
     bash
     npm install
     
 
-### Running the Server
+### Scripts
 
-| Command | Description |
-| :--- | :--- |
-| `npm run dev` | Starts the server in watch mode for local development. |
-| `npm start` | Runs the production build. |
+| Script      | Description                                     |
+| :---------- | :---------------------------------------------- |
+| `dev`       | Starts the development server with hot-reloading. |
+| `build`     | Builds the production-ready application.        |
+| `lint`      | Runs Biome to lint and format code.             |
+| `lint:fix`  | Runs Biome to lint and fix code.
+| `test`      | Executes unit and integration tests with Vitest.|
 
-### Example MCP Request (Sent to `POST /api/fetch`)
+---
 
+## License
 
-{
-  "url": "https://example.com/document.pdf",
-  "targetPath": "/agent-downloads/client-A/document_v1.pdf",
-  "contentType": "application/pdf"
-}
+This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0)**. You are free to:
 
+*   **Share** — copy and redistribute the material in any medium or format.
+*   **Adapt** — remix, transform, and build upon the material.
 
-## 🤝 Development & Contribution
+Under the following terms:
 
-This project adheres to the **Apex Standard** philosophy: Zero-Defect, High-Velocity, Future-Proof. We value clean, strictly typed, and well-tested code.
+*   **Attribution** — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+*   **NonCommercial** — You may not use the material for commercial purposes.
 
-**Development Principles:**
-*   **SOLID:** Adherence to Dependency Inversion and Single Responsibility is mandatory for new modules.
-*   **DRY:** Avoid code duplication, especially in error handling logic.
-*   **YAGNI:** Implement only what is required by the current MCP contract.
-
-Refer to the official contributing guide for setup details and PR submission protocols.
-
-## ⚖️ License
-
-This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International License**. See the [LICENSE](LICENSE) file for full details.
-
-> *You are free to share and adapt this material for non-commercial purposes, provided you give appropriate credit.*
+See the [LICENSE](https://github.com/chirag127/AiAgent-UrlContent-Fetcher-NodeJS-Service/blob/main/LICENSE) file for full details.
