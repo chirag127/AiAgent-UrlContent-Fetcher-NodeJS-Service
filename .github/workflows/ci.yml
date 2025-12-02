@@ -1,0 +1,71 @@
+name: CI - NodeJS Content Fetcher Validation
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build_and_test:
+    name: Build, Lint & Test (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./ # Assuming repository root is where package.json resides
+
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x]
+
+    steps:
+      - name: 1. Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 2. Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: 3. Install Dependencies (using npm for simplicity, uv is for Python context)
+        run: npm ci
+
+      - name: 4. Format & Lint Check (Biome Standard)
+        # Assuming Biome is configured for TypeScript/NodeJS as per Apex standard
+        run: npx @biomejs/biome check --apply=false --error-on-warnings
+
+      - name: 5. Build TypeScript Artifacts
+        # Compile the strict TypeScript source into JavaScript
+        run: npm run build
+
+      - name: 6. Run Unit & Integration Tests (Vitest)
+        # Assuming test script runs Vitest
+        run: npm test
+
+      - name: 7. Generate Code Coverage Report (For Codecov)
+        # Ensure package.json has a test script configured to output lcov report
+        run: npm run test:coverage
+
+      - name: 8. Upload Coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/lcov.info
+          flags: node_${{ matrix.node-version }}
+
+  security_scan:
+    name: Security Analysis (Snyk)
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 2. Install Dependencies
+        run: npm ci
+
+      - name: 3. Snyk Security Scan
+        uses: snyk/actions/node@master
+        continue-on-error: true # Allow PRs to pass if low-severity issues are found
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
