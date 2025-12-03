@@ -1,50 +1,84 @@
-# Security Policy for ContentFetch-AI-Content-Downloader-MCP-Server
+# Security Policy for AgentData-WebContent-Ingestion-Service-NodeJS
 
-## Our Commitment
+## 1. Reporting a Vulnerability
 
-The project maintainers take the security of `ContentFetch-AI-Content-Downloader-MCP-Server` seriously. We are committed to a secure development lifecycle and to rapidly addressing vulnerabilities when they are discovered. The integrity and safety of our users and their data are our highest priorities.
+The security of `AgentData-WebContent-Ingestion-Service-NodeJS` is paramount. We take all security vulnerabilities seriously and appreciate the community's efforts in identifying and reporting them responsibly.
 
-## Supported Versions
+**How to Report:**
+Please report security vulnerabilities by emailing `security@chirag127.dev`. In your email, provide as much detail as possible, including:
+*   A clear and concise description of the vulnerability.
+*   Steps to reproduce the vulnerability.
+*   The impact of the vulnerability.
+*   Any potential fixes or mitigations.
+*   Your name/handle and contact information if you wish to be credited.
 
-Only the latest version of the software is actively supported with security patches. We encourage all users to stay updated to ensure they are running the most secure and stable release.
+**Response Time:**
+We aim to acknowledge receipt of your report within 48 hours. After initial assessment, we will provide a timeline for addressing the issue. We kindly request that you do not disclose the vulnerability publicly until it has been resolved and a security update has been released.
+
+## 2. Security Policy
+
+This document outlines the security policies and procedures for `AgentData-WebContent-Ingestion-Service-NodeJS`. Our goal is to ensure the integrity, confidentiality, and availability of the service and its data.
+
+### 2.1. Responsible Disclosure
+
+We advocate for responsible disclosure. Publicly disclosing a vulnerability before a fix is available can put users at risk. We commit to working with security researchers to understand and mitigate issues promptly.
+
+### 2.2. Scope
+
+This policy applies to all components of `AgentData-WebContent-Ingestion-Service-NodeJS`, including the source code, build processes, and deployed instances under our direct control.
+
+## 3. Supported Versions
+
+Security updates are provided for specific versions of `AgentData-WebContent-Ingestion-Service-NodeJS`. It is crucial to always use a supported version to ensure you receive critical security patches.
 
 | Version | Supported          |
-| ------- | ------------------ |
-| `1.x.x`   | :white_check_mark: |
-| `< 1.0`   | :x:                |
+| :------ | :----------------- |
+| `2.x.x` | :white_check_mark: |
+| `1.x.x` | :x:                |
 
-## Reporting a Vulnerability
+We strongly recommend upgrading to the latest stable version of `AgentData-WebContent-Ingestion-Service-NodeJS` to benefit from the most recent security enhancements and bug fixes.
 
-We appreciate responsible disclosure from the security community. If you discover a security vulnerability, please report it to us privately to protect the project and its users.
+## 4. Security Practices & Development Guidelines
 
-**Please do not report security vulnerabilities through public GitHub issues.**
+Our development lifecycle incorporates the following security practices to minimize risks:
 
-Instead, please use the **private vulnerability reporting feature** provided by GitHub.
+### 4.1. Input Validation and Sanitization
 
-[**Report a Vulnerability Here**](https://github.com/chirag127/ContentFetch-AI-Content-Downloader-MCP-Server/security/advisories/new)
+All external inputs (HTTP requests, configuration files, environment variables, etc.) are rigorously validated and sanitized to prevent common attack vectors such as injection flaws (SQL, NoSQL, command, HTML, JS) and cross-site scripting (XSS).
 
-### What to Include
+### 4.2. Dependency Management
 
-To help us address the issue quickly, please provide a detailed report including:
+*   We utilize automated tools for scanning and auditing third-party dependencies for known vulnerabilities (e.g., `npm audit`, Snyk).
+*   Dependencies are regularly updated to their latest secure versions.
+*   `package-lock.json` is always committed to ensure consistent dependency trees.
 
-- A clear description of the vulnerability and its potential impact.
-- Step-by-step instructions to reproduce the issue.
-- Proof-of-concept (PoC) code, screenshots, or videos.
-- Any potential mitigations you have identified.
+### 4.3. Secure Coding Principles
 
-### Our Process
+*   Adherence to OWASP Top 10 recommendations.
+*   Implementation of the Principle of Least Privilege.
+*   Avoidance of hardcoding sensitive credentials.
+*   Error handling designed to prevent information leakage.
+*   Secure session management practices for any authentication flows.
 
-1.  **Acknowledgment:** We will acknowledge receipt of your report within 48 hours.
-2.  **Triage & Investigation:** We will investigate the report to confirm the vulnerability and determine its severity.
-3.  **Communication:** We will provide an update on our progress within 7 business days.
-4.  **Resolution:** We will work to develop and release a patch as quickly as possible, coordinated with you.
-5.  **Disclosure:** Once the vulnerability is patched, we will issue a security advisory and credit you for your discovery, unless you prefer to remain anonymous.
+### 4.4. Authentication and Authorization
 
-## Security Best Practices
+*   Strong, multi-factor authentication (where applicable) is enforced for critical systems.
+*   Granular authorization controls are implemented to ensure users and services only access resources they are explicitly permitted to.
 
-We adhere to the following security practices to maintain the integrity of our codebase:
+### 4.5. Logging and Monitoring
 
-- **Dependency Scanning:** We use GitHub's Dependabot to automatically scan our dependencies for known vulnerabilities and create pull requests to update them.
-- **Static Code Analysis:** We employ GitHub CodeQL for Static Analysis Security Testing (SAST) to identify potential vulnerabilities in our code during the development process.
-- **Principle of Least Privilege:** The application is designed to run with the minimum necessary permissions.
-- **Secure Defaults:** We strive to provide secure default configurations out of the box.
+Comprehensive logging of security-relevant events is implemented. Logs are monitored for suspicious activities and anomalies, and alerts are configured for critical events.
+
+### 4.6. Secure Configuration
+
+*   Default configurations are secured and hardened.
+*   Sensitive configuration data is externalized and managed securely (e.g., using environment variables, secret management services).
+
+### 4.7. Data Protection
+
+*   Sensitive data is encrypted at rest and in transit using industry-standard protocols (e.g., TLS 1.2+).
+*   Data retention policies are enforced to minimize the storage of unnecessary sensitive information.
+
+## 5. Contact
+
+For general security inquiries not related to reporting a specific vulnerability, please open an issue on the GitHub repository: [AgentData-WebContent-Ingestion-Service-NodeJS Issues](https://github.com/chirag127/AgentData-WebContent-Ingestion-Service-NodeJS/issues).
